@@ -9,12 +9,26 @@ import Foundation
 
 public class Board: Codable
 {
-    public var instance: String
-    public var username: String
+    public var name: String
 
-    public init(instance: URL, username: String)
+    public init(name: String)
     {
-        self.instance = instance.absoluteString
-        self.username = username
+        self.name = name
+    }
+}
+
+extension Board: Hashable
+{
+    public func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.name)
+    }
+}
+
+extension Board: Equatable
+{
+    public static func == (lhs: Board, rhs: Board) -> Bool
+    {
+        return lhs.name == rhs.name
     }
 }

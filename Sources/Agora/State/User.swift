@@ -7,6 +7,7 @@
 
 import Foundation
 
+import Amber
 import Universe
 
 public enum User: Codable

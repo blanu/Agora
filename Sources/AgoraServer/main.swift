@@ -78,6 +78,8 @@ extension CommandLine
     {
         mutating func run() throws
         {
+            AgoraRegistration.register()
+
 #if os(macOS) || os(iOS)
             let logger = Logger(subsystem: "org.OperatorFoundation.AgoraServer", category: "Agora")
 #else
@@ -95,7 +97,7 @@ extension CommandLine
             let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
             lifecycle.registerShutdown(label: "eventLoopGroup", .sync(eventLoopGroup.syncShutdownGracefully))
 
-            let simulation = Simulation(capabilities: Capabilities(.display, .networkListen))
+            let simulation = Simulation(capabilities: Capabilities(.display, .networkListen, .persistence))
             let listener = try AgoraServerController(config: config, logger: logger, effects: simulation.effects, events: simulation.events)
 
             lifecycle.register(label: "server", start: .sync(listener.start), shutdown: .sync(listener.shutdown))

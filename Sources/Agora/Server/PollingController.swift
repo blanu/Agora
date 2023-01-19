@@ -9,6 +9,7 @@ import Foundation
 
 import FeedKit
 import Schedule
+import Universe
 
 public class PollingController
 {
@@ -57,9 +58,9 @@ public class PollingController
         print("done.")
     }
 
-    func fetchPosts(_ user: User) throws
+    func fetchPosts(_ user: Reference<User>) throws
     {
-        switch user
+        switch user.object
         {
             case .Mastodon(let value):
                 try self.fetchMastodonPosts(value)
